@@ -1,5 +1,5 @@
 import os
-import google.generativeai as genai
+from utils.llm_model import LLMModel
 from dotenv import load_dotenv
 load_dotenv(override=True)
 import os
@@ -7,11 +7,8 @@ import re
 
 class RecommendationService:
     
-    def __init__(self) -> None:
-        self.GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
-        genai.configure(api_key=self.GOOGLE_API_KEY)
-        self.model_name = os.environ.get("PRIMARY_MODEL_NAME")
-        self.model = genai.GenerativeModel(self.model_name)
+    def __init__(self):
+        self.model = LLMModel().get_llm_model()
 
     def clean_preferences_text(self, preferences_text):
         cleaned_lines = []
