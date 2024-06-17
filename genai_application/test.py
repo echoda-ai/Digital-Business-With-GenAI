@@ -1,7 +1,7 @@
-from services.gemini import GenAI
+from services.chatbot_service import ChatBotService
 from utils.gemini_model_collector import GeminiModelCollector
 
-a = GenAI()
+a = ChatBotService()
 b = GeminiModelCollector()
 
 result = a.call_gemini_model("Hello, you teach me about math?")
