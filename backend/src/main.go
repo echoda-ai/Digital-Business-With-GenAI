@@ -1,9 +1,10 @@
 package main
 
 import (
-	"github.com/labstack/echo/v4"
-
 	utils "genai/src/utils"
+
+	"github.com/labstack/echo/v4"
+	echoSwagger "github.com/swaggo/echo-swagger"
 )
 
 func main() {
@@ -14,6 +15,8 @@ func main() {
 	// logger
 	utils.NewLogger()
 	e.Use(utils.LoggingMiddleware)
+
+	e.GET("/swagger/*", echoSwagger.WrapHandler)
 
 	// routes
 	e.GET("/", func(c echo.Context) error {
