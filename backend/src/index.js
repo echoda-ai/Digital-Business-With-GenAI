@@ -1,7 +1,6 @@
 const { logger } = require('./utils/logger.js')
 const express = require('express')
-const { PORT } = require('./constant.js')
-const authRouter = require('./routes/auth.js')
+const { NODE_PORT } = require('./constant.js')
 
 const app = express()
 
@@ -12,6 +11,7 @@ app.use((err, _req, _res, _next) => {
 })
 
 app.get('/', (_req, res) => res.send('Hello World!'))
-app.use('/auth', authRouter)
+app.use('/auth', require('./routes/auth.js'));
+app.use('/categories', require('./routes/categories.js'))
 
-app.listen(PORT, () => logger.info(`Server is running on http://localhost:${PORT}`))
+app.listen(NODE_PORT, () => logger.info(`Server is running on http://localhost:${NODE_PORT}`))

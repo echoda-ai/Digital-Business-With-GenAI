@@ -2,8 +2,7 @@ const express = require('express');
 const router = express.Router();
 const UserRepository = require('../repository/user');
 const { check, validationResult } = require('express-validator');
-const { v4: uuid4 } = require('uuid');
-const { hashPassword, comparePassword, jwtSign } = require('../utils/util');
+const { hashPassword, comparePassword, jwtSign, generateUUID } = require('../utils/util');
 const { safeResponse, safeError } = require('../utils/response');
 
 const registerDto = [
@@ -25,7 +24,6 @@ const userRepository = new UserRepository();
 router.post('/register', registerDto, (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
-        console.log(errors.array())
         return safeError(res, errors.array())
     }
 
@@ -37,7 +35,7 @@ router.post('/register', registerDto, (req, res) => {
 
             const user = {
                 ...req.body,
-                userId: uuid4(),
+                userId: generateUUID(),
                 roleId: req.body.roleId || 1,
                 password: hashPassword(req.body.password),
             }
@@ -56,7 +54,6 @@ router.post('/register', registerDto, (req, res) => {
 router.post('/login', loginDto, (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
-        console.log(errors.array())
         return safeError(res, errors.array())
     }
 

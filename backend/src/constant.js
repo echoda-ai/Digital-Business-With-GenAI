@@ -9,7 +9,7 @@ const getEnv = (key) => {
   }
 };
 
-const PORT = getEnv('PORT');
+const NODE_PORT = getEnv('BACKEND_PORT');
 const DB_HOST = getEnv('DB_HOST');
 const DB_PORT = getEnv('DB_PORT');
 const DB_USER = getEnv('DB_USER');
@@ -19,7 +19,7 @@ const JWT_SECRET = getEnv('JWT_SECRET');
 const JWT_EXPIRE = getEnv('JWT_EXPIRE');
 
 module.exports = {
-  PORT,
+  NODE_PORT,
   DB_HOST,
   DB_PORT,
   DB_USER,

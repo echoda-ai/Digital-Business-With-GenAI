@@ -10,9 +10,7 @@ const hashPassword = (password) => {
     return hash;
 };
 
-const comparePassword = (password, hash) => {
-    return hashPassword(password) === hash;
-}
+const comparePassword = (password, hash) => hashPassword(password) === hash;
 
 const jwtSign = (userId) => {
     const token = jwt.sign({ userId: userId },
@@ -26,5 +24,7 @@ const jwtSign = (userId) => {
     return { token, expiredDate }
 }
 
+const generateUUID = () => crypto.randomUUID()
 
-module.exports = { hashPassword, comparePassword, jwtSign };
+
+module.exports = { hashPassword, comparePassword, jwtSign, generateUUID };
