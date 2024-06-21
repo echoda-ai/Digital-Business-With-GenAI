@@ -33,9 +33,9 @@ class ChatBotService:
             print("Error here: ", {e})
             return None
     
-    def get_user_intention(self, user_query):
+    def check_user_intention(self, user_query):
         prompt = f"""
-        Classify the following user query into one of these intents: recommendation, order, general.
+        Classify the following user query into one of these intents: recommendation, order, general. You must only classify the output only. no need to describe.
         User Query: "{user_query}"
         Intent:
         """
@@ -50,7 +50,9 @@ class ChatBotService:
                 }
             )
             intent_response = response.text.strip()
+            print(intent_response)
             intent = "general"
+
             if "recommendation" in intent_response:
                 intent = "recommendation"
             elif "order" in intent_response:
