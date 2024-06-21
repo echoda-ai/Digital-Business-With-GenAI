@@ -15,6 +15,8 @@ const DB_PORT = getEnv('DB_PORT');
 const DB_USER = getEnv('DB_USER');
 const DB_PASSWORD = getEnv('DB_PASSWORD');
 const DB_NAME = getEnv('DB_NAME');
+const JWT_SECRET = getEnv('JWT_SECRET');
+const JWT_EXPIRE = getEnv('JWT_EXPIRE');
 
 module.exports = {
   PORT,
@@ -23,4 +25,6 @@ module.exports = {
   DB_USER,
   DB_PASSWORD,
   DB_NAME,
+  JWT_SECRET,
+  JWT_EXPIRE,
 };
