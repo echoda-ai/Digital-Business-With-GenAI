@@ -39,7 +39,7 @@ class RecommendationService:
                 attributes_list.append(attr)
         return attributes_list
 
-    def extract_preferences(self, user_query):
+    def check_user_preferences(self, user_query):
 
         prompt = f"""
         Extract the category, attributes, and price range from the following user query:
