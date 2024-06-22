@@ -5,7 +5,7 @@ const { safeError, safeResponse } = require('../utils/response.js');
 
 const categoryRepository = new CategoryRepository()
 
-router.get('/', (req, res) => {
+router.get('/', (_req, res) => {
     categoryRepository.findAll()
         .then(categories => safeResponse(res, { payload: categories }))
         .catch((error) => safeError(res, { message: error.message }))
