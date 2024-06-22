@@ -10,7 +10,6 @@ class ChatBotService:
     def get_general_answer(self, user_query):
         try:
             print(user_query)
-
             response = self.model.generate_content(
                 user_query.question,
                 safety_settings={
@@ -36,7 +35,7 @@ class ChatBotService:
     def check_user_intention(self, user_query):
         prompt = f"""
         Classify the following user query into one of these intents: recommendation, order, general. You must only classify the output only. no need to describe.
-        User Query: "{user_query}"
+        User Query: "{user_query.question}"
         Intent:
         """
         try:

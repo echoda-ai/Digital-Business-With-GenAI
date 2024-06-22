@@ -2,7 +2,7 @@ version: '3.9'
 services:
   db:
     build:
-      context: ./docker/mariadb
+      context: ./database/mariadb
       dockerfile: Dockerfile
     env_file:
       - .env  
@@ -18,7 +18,7 @@ services:
       - MYSQL_CHARACTER_SET_SERVER=utf8mb4
       - MYSQL_COLLATION_SERVER=utf8mb4_general_ci
     volumes:
-      - ./docker/mariadb/db/:/var/lib/mysql   
+      - ./database/mariadb/db/:/var/lib/mysql   
     networks:
       - backend
 

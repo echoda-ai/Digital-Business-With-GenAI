@@ -13,7 +13,7 @@ class PostgreSQLService:
         self.port = 5432
         self.connection = None
 
-    def connect(self):
+    def connect_postgresql(self):
         try:
             self.connection = psycopg2.connect(
                 dbname=self.dbname,
@@ -31,7 +31,7 @@ class PostgreSQLService:
             else:
                 print(f"An error occurred: {e}")
     
-    def execute_query(self, query, params=None):
+    def execute_postgresql_query(self, query, params=None):
         cursor = self.connection.cursor()
         try:
             cursor.execute(query, params)
@@ -43,7 +43,7 @@ class PostgreSQLService:
         finally:
             cursor.close()
     
-    def fetch_results(self, query, params=None):
+    def fetch_postgresql_data(self, query, params=None):
         cursor = self.connection.cursor()
         try:
             cursor.execute(query, params)
@@ -55,7 +55,7 @@ class PostgreSQLService:
         finally:
             cursor.close()
 
-    def close_connection(self):
+    def close_postgresql_connection(self):
         if self.connection:
             self.connection.close()
             print("PostgreSQL connection closed")
