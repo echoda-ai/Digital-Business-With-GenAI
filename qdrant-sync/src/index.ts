@@ -1,7 +1,13 @@
-import Knex from "../src/db/knex";
+import cron from 'node-cron';
+import { getProducts } from './services/product';
 
-Knex('users').select('*').then((users) => {
-    console.log(users);
+// for schedule task
+cron.schedule('0 0 * * *', () => {
+    console.log('running a task every day');
+});
+
+getProducts().then((products) => {
+    console.log(products);
 }).catch((error) => {
     console.log(error);
-})
+});
