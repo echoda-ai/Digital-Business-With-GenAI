@@ -12,14 +12,17 @@ const hashPassword = (password) => {
 
 const comparePassword = (password, hash) => hashPassword(password) === hash;
 
-const jwtSign = (userId) => {
-    const token = jwt.sign({ userId: userId },
+const jwtSign = (userID) => {
+    console.log("userID", userID)
+    const expiresIn = Number(JWT_EXPIRE.split(' ')[0]) * 24 * 60 * 60; // Convert days to seconds
+
+    const token = jwt.sign({ userID: userID },
         JWT_SECRET,
-        { expiresIn: JWT_EXPIRE }
+        { expiresIn: expiresIn }
     );
     const expiredDate = DateTime
         .local()
-        .plus({ days: Number(JWT_EXPIRE.split(' ')[0]) });
+        .plus({ day: expiresIn });
 
     return { token, expiredDate }
 }

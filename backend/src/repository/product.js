@@ -7,10 +7,20 @@ class ProductRepository {
     }
 
     getProductById(productID) {
+        console.log("productID", productID)
         return knex("products")
             .select("productID", "name", "description", "price", "quantityAvailable")
-            .where({ productID });
+            .where('productID', '=', productID)
+            .catch(err => { throw err })
+    }
+
+    async decrementProductQuantity(productID, quantity, trx) {
+        return trx('products')
+            .where('productID', '=', productID)
+            .decrement('quantityAvailable', quantity)
+            .catch(err => { throw err })
     }
 }
 
-module.exports = ProductRepository;
+
+module.exports = ProductRepository

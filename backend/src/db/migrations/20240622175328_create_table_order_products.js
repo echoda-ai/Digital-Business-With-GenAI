@@ -4,9 +4,9 @@
  */
 exports.up = function (knex) {
     return knex.schema.createTable('order_products', function (table) {
-        table.uuid('orderID').references('orderID').inTable('orders');
-        table.uuid('productID').references('productID').inTable('products');
-        table.integer('quantity').notNullable();
+        table.uuid('orderID').references('orderID').inTable('orders').notNullable();
+        table.uuid('productID').references('productID').inTable('products').notNullable();
+        table.timestamps(true, true);
     });
 };
 

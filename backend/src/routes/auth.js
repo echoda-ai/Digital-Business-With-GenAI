@@ -35,14 +35,14 @@ router.post('/register', registerDto, (req, res) => {
 
             const user = {
                 ...req.body,
-                userId: generateUUID(),
+                userID: generateUUID(),
                 roleId: req.body.roleId || 1,
                 password: hashPassword(req.body.password),
             }
 
             return userRepository.saveUser(user)
                 .then(() => {
-                    const token = jwtSign(user.userId);
+                    const token = jwtSign(user.userID);
                     return safeResponse(res, { payload: token });
                 });
         })
@@ -68,7 +68,7 @@ router.post('/login', loginDto, (req, res) => {
                 return safeResponse(res, { message: 'The password is not correct' })
             }
 
-            const token = jwtSign(user.userId);
+            const token = jwtSign(user.userID);
             return safeResponse(res, { payload: token });
         })
         .catch(error => {
