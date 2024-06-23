@@ -44,7 +44,9 @@ async def get_response_data(
         user_intention = chatbot.check_user_intention(user_query)
         if user_intention == "recommendation":
             user_preferences = recommender.get_user_preferences(user_query)
-            response = user_preferences
+            response = recommender.get_product_recommend_ids(user_preferences)
+            print(response)
+
         elif user_intention == "order":
             response = "order"
         else:

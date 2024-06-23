@@ -2,5 +2,5 @@ from pydantic import BaseModel,Field
 from typing import Union
 
 class ChatbotInputSchema(BaseModel):
-    question: str = Field('Hello, can you give me the Confortable Running Shoes around 15$?', example='Hello, can you give me the Confortable Running Shoes around 15$')
+    question: str = Field('Hello, can you recommend me of the adidas shoes?', example='Hello, can you recommend me of the adidas shoes?')
     user: str = Field('test.user', example='test.user')     
