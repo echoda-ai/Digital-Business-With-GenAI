@@ -26,6 +26,7 @@ app.get('/', (_req, res) => res.send('Hello World!'))
 app.use('/auth', require('./routes/auth.js'));
 app.use('/categories', require('./routes/categories.js'))
 app.use('/products', require('./routes/products.js'))
+app.use('/orders', require('./routes/orders.js'))
 
 
 app.listen(NODE_PORT, () => logger.info(`Server is running on http://localhost:${NODE_PORT}`))
