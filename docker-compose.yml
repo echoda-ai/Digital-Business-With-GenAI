@@ -37,6 +37,15 @@ services:
     networks:
       - backend
 
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
+    links:
+      - db
+    networks:
+      - backend
+
 networks:
   backend:
     driver: bridge
