@@ -11,11 +11,9 @@ class RecommendationService:
         self.model = LLMModel().get_llm_model()
 
     def clean_preferences_text(self, preferences_text):
-        cleaned_lines = []
         for line in preferences_text.split('\n'):
             cleaned_line = re.sub(r'[*]', '', line) 
-            cleaned_lines.append(cleaned_line)
-        return cleaned_lines
+        return cleaned_line
 
     def extract_price(self, price_text):
         price_text = price_text.replace("$", "").strip()
@@ -39,11 +37,11 @@ class RecommendationService:
                 attributes_list.append(attr)
         return attributes_list
 
-    def check_user_preferences(self, user_query):
+    def get_user_preferences_archived(self, user_query):
 
         prompt = f"""
         Extract the category, attributes, and price range from the following user query:
-        User Query: "{user_query}"
+        User Query: "{user_query.question}"
         Category:
         Attributes:
         Price Range:
@@ -61,7 +59,9 @@ class RecommendationService:
             )
 
             preferences_text = response.text.strip()
+            print(preferences_text)
             preferences_lines = self.clean_preferences_text(preferences_text)
+            print(preferences_lines)
 
             preferences = {
                 'category': None,
@@ -91,7 +91,39 @@ class RecommendationService:
         except Exception as e:
             print(f"Error generating content: {e}")
             return {
-                'category': None,
-                'attributes': [],
-                'price_range': None
+                'category': "Sport",
+                'attributes': ["Comfortable"],
+                'price_range': "10$"
+            }
+        
+    def get_user_preferences(self, user_query):
+
+        prompt = f"""
+        Extract the user's preference following user query and response as the list. You must only classify the output only. no need to describe.
+        User Query: "{user_query.question}"
+        preferences:
+        """
+        
+        try:
+            response = self.model.generate_content(
+                prompt,
+                safety_settings={
+                    'HATE': 'BLOCK_NONE',
+                    'HARASSMENT': 'BLOCK_NONE',
+                    'SEXUAL': 'BLOCK_NONE',
+                    'DANGEROUS': 'BLOCK_NONE'
+                }
+            )
+
+            preferences_text = response.text.strip()
+            user_preference_list = [item.strip('- ').strip('$') for item in preferences_text.split('\n')]            
+            return user_preference_list
+
+        
+        except Exception as e:
+            print(f"Error generating content: {e}")
+            return {
+                'category': "Sport",
+                'attributes': ["Comfortable"],
+                'price_range': "10$"
             }
