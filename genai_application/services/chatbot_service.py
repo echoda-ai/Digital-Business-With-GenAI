@@ -1,4 +1,6 @@
 from utils.llm_model import LLMModel
+import google.generativeai as genai
+import google.generativeai as gemini_client
 from dotenv import load_dotenv
 import os 
 load_dotenv(override=True)
@@ -62,3 +64,21 @@ class ChatBotService:
         except Exception as e:
             print(f"Error generating content: {e}")
             return None
+        
+    def extract_512_dimension_embedding(self, embedding_result):
+        return embedding_result['embedding'][:512]
+    
+    def embedding_user_query(self, user_query):
+        user_query = user_query.lower().replace(" ", "").strip()
+        
+        gemini_client.configure(api_key=os.environ.get("GOOGLE_API_KEY"))
+        embedding_model_name = os.environ.get("EMBEDDING_MODEL")
+        
+        embedding_result = gemini_client.embed_content(
+            model=embedding_model_name,
+            content=user_query,
+            task_type="retrieval_document"
+        )
+        
+        embedding = self.extract_512_dimension_embedding(embedding_result)
+        return [embedding]
