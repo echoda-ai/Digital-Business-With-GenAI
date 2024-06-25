@@ -14,28 +14,7 @@ if __name__ == "__main__":
             "price":1500,
             "quantityAvailable":5,
             "productCategory":"Electronic",
-            "createdAt":"2024-06-23T15:10:00",
-            "updatedAt":"2024-06-23T15:10:00"
-        }),
-        PointStruct(id=2, vector=[0.1] * qdrant_db.dimensions, payload={
-            "productID": "ID2",
-            "name":"ADIDAS A123",
-            "description":"A awesome running shoes for gentlemen",
-            "price":20.25,
-            "quantityAvailable":5,
-            "productCategory":"Shoes",
-            "createdAt":"2024-06-23T12:10:00",
-            "updatedAt":"2024-06-23T12:10:00"
-        }),
-        PointStruct(id=3, vector=[0.1] * qdrant_db.dimensions, payload={
-            "productID": "ID3",
-            "name":"ADIDAS A124",
-            "description":"A awesome running shoes for gentlemen",
-            "price":20.25,
-            "quantityAvailable":5,
-            "productCategory":"Shoes",
-            "createdAt":"2024-06-23T12:10:00",
-            "updatedAt":"2024-06-23T12:10:00"
+
         })
     ]
 

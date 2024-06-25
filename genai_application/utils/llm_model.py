@@ -7,6 +7,7 @@ import re
 
 class LLMModel:
     def __init__(self) -> None:
+        
         self.GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
         genai.configure(api_key=self.GOOGLE_API_KEY)
         self.model_name = os.environ.get("PRIMARY_MODEL_NAME")

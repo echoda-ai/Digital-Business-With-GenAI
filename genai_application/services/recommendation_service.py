@@ -5,6 +5,7 @@ load_dotenv(override=True)
 import os
 import re
 from services.qdrant_service import QdrantService
+from services.chatbot_service import ChatBotService
 from services.nlp_service import TextVectorizerService
 
 
@@ -14,6 +15,7 @@ class RecommendationService:
         self.model = LLMModel().get_llm_model()
         self.text_vectorizer = TextVectorizerService()
         self.qdrant_service = QdrantService()
+        self.chatbot_service = ChatBotService()
 
     def clean_preferences_text(self, preferences_text):
         for line in preferences_text.split('\n'):
@@ -21,7 +23,6 @@ class RecommendationService:
         return cleaned_line
     
     def get_user_preferences(self, user_query):
-
         prompt = f"""
         Extract the user's preference following user query and response as the list. You must only classify the output only. no need to describe.
         User Query: "{user_query.question}"
@@ -38,26 +39,34 @@ class RecommendationService:
                     'DANGEROUS': 'BLOCK_NONE'
                 }
             )
-
             preferences_text = response.text.strip()
-            user_preference_list = [item.strip('- ').strip('$') for item in preferences_text.split('\n')]            
-            return user_preference_list
-
-        
+            user_preference_string = ' '.join([item.strip('- ').strip('$') for item in preferences_text.split('\n')])
+            return user_preference_string
         except Exception as e:
-            print(f"Error generating content: {e}")
-            return {
-                'category': "Sport",
-                'attributes': ["Comfortable"],
-                'price_range': "10$"
-            } 
+            print(f"Error generating user preferences: {e}")
+            return "topproduct"
         
-    def get_product_recommend_ids(self, user_preference_list, top_k=3):
-
-        print(user_preference_list)
+    def get_product_recommend_ids_archived(self, user_preference, top_k=3):
         
-        text_vectorizer = TextVectorizerService()  
-        embedded_vectors = text_vectorizer.vectorize_texts(user_preference_list)
+        embedded_vectors = self.text_vectorizer.vectorize_texts(user_preference)
+        if embedded_vectors:
+            query_vector = embedded_vectors[0]  
+            search_results = self.qdrant_service.search_vectors(query_vector)
+    
+            if search_results:
+                sorted_results = sorted(search_results, key=lambda x: x.score, reverse=True)
+                top_product_recommendations = [
+                    (result.payload["productID"], result.score) for result in sorted_results[:top_k]
+                ]
+                return top_product_recommendations
+            else:
+                return []
+        else:
+            return []
+        
+    def get_product_recommend_ids(self, user_preference, top_k=3):
+        
+        embedded_vectors = self.chatbot_service.embedding_user_query(user_preference)
         
         if embedded_vectors:
             query_vector = embedded_vectors[0]  
