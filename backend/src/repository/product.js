@@ -4,6 +4,8 @@ class ProductRepository {
     getProducts() {
         return knex('products')
             .select("productID", "name", "description", "price", "quantityAvailable")
+            .then(products => products)
+            .catch(err => { throw err })
     }
 
     getProductById(productID) {
