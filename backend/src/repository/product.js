@@ -4,8 +4,6 @@ class ProductRepository {
     getProducts() {
         return knex('products')
             .select("productID", "name", "description", "price", "quantityAvailable")
-            .then(products => products)
-            .catch(err => { throw err })
     }
 
     getProductById(productID) {
@@ -13,14 +11,18 @@ class ProductRepository {
         return knex("products")
             .select("productID", "name", "description", "price", "quantityAvailable")
             .where('productID', '=', productID)
-            .catch(err => { throw err })
     }
 
-    async decrementProductQuantity(productID, quantity, trx) {
+    decrementProductQuantity(productID, quantity, trx) {
         return trx('products')
             .where('productID', '=', productID)
             .decrement('quantityAvailable', quantity)
-            .catch(err => { throw err })
+    }
+
+    findProductById(productIDs) {
+        return knex('products')
+            .select("productID", "name", "description", "price", "quantityAvailable")
+            .whereIn('productID', productIDs)
     }
 }
 

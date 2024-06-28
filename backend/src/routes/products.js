@@ -19,4 +19,11 @@ router.get('/:id', (req, res) => {
         .catch(error => safeError(res, { message: error.message }));
 });
 
+router.post('/get-product-by-ids', (req, res) => {
+    const { body } = req;
+    productRepository.findProductById(body.productIds)
+        .then(result => safeResponse(res, { payload: result }))
+        .catch(error => safeError(res, { message: error.message }));
+});
+
 module.exports = router;
