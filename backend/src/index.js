@@ -1,7 +1,7 @@
 const { logger } = require('./utils/logger.js')
 const express = require('express')
 const { NODE_PORT } = require('./constant.js')
-const compression = require('compression')
+// const compression = require('compression')
 const app = express()
 
 app.use(express.json())
@@ -10,17 +10,17 @@ app.use((err, _req, _res, _next) => {
     logger.error(err)
 })
 
-app.use(compression({
-    level: 9,
-    threshold: 10 * 1024,
-    algorithm: 'gzip',
-    filter: (req, res) => {
-        if (req.headers['x-no-compression']) {
-            return false
-        }
-        return compression.filter(req, res)
-    }
-}))
+// app.use(compression({
+//     level: 9,
+//     threshold: 10 * 1024,
+//     algorithm: 'gzip',
+//     filter: (req, res) => {
+//         if (req.headers['x-no-compression']) {
+//             return false
+//         }
+//         return compression.filter(req, res)
+//     }
+// }))
 
 app.get('/', (_req, res) => res.send('Hello World!'))
 app.use('/auth', require('./routes/auth.js'));
