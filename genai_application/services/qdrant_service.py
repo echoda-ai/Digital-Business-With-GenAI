@@ -22,12 +22,9 @@ class QdrantService:
 
     def insert_vectors(self, user_query, product_id):
         embedding_list = self.chatbot_service.embedding_user_query(user_query)
-        
         if len(embedding_list) != 1:
             raise ValueError("Expected a single embedding in the list")
-    
         embedding = embedding_list[0]
-        
         point = PointStruct(
             id=str(uuid.uuid4()),  
             vector=embedding, 
@@ -35,12 +32,10 @@ class QdrantService:
                 "productID": product_id  
             }
         )
-        
         self.client.upsert(
             collection_name=self.collection_name,
             points=[point]
         )
-
 
     def search_vectors(self, query_vector):
         search_results = self.client.search(collection_name=self.collection_name,query_vector=query_vector)
