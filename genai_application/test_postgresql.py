@@ -1,5 +1,5 @@
 
-from services.postgresql_service import PostgreSQLService
+from genai_application.utils.postgresql_service import PostgreSQLService
 
 if __name__ == "__main__":
     postgres_client = PostgreSQLService()

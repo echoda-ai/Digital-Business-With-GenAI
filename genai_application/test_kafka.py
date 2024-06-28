@@ -1,4 +1,4 @@
-from services.kafka_service import KafkaService
+from genai_application.utils.kafka_service import KafkaService
 
 if __name__ == "__main__":
     kafka_client = KafkaService()

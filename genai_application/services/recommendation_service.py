@@ -6,14 +6,12 @@ import os
 import re
 from services.qdrant_service import QdrantService
 from services.chatbot_service import ChatBotService
-from services.nlp_service import TextVectorizerService
 
 
 class RecommendationService:
     
     def __init__(self):
         self.model = LLMModel().get_llm_model()
-        self.text_vectorizer = TextVectorizerService()
         self.qdrant_service = QdrantService()
         self.chatbot_service = ChatBotService()
 
@@ -28,7 +26,6 @@ class RecommendationService:
         User Query: "{user_query.question}"
         preferences:
         """
-        
         try:
             response = self.model.generate_content(
                 prompt,
@@ -52,7 +49,6 @@ class RecommendationService:
         if embedded_vectors:
             query_vector = embedded_vectors[0]  
             search_results = self.qdrant_service.search_vectors(query_vector)
-    
             if search_results:
                 sorted_results = sorted(search_results, key=lambda x: x.score, reverse=True)
                 top_product_recommendations = [
@@ -65,13 +61,10 @@ class RecommendationService:
             return []
         
     def get_product_recommend_ids(self, user_preference, top_k=3):
-        
         embedded_vectors = self.chatbot_service.embedding_user_query(user_preference)
-        
         if embedded_vectors:
             query_vector = embedded_vectors[0]  
             search_results = self.qdrant_service.search_vectors(query_vector)
-    
             if search_results:
                 sorted_results = sorted(search_results, key=lambda x: x.score, reverse=True)
                 top_product_recommendations = [

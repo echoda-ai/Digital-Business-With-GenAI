@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, Request
 from services.chatbot_service import ChatBotService
 from services.recommendation_service import RecommendationService 
+from services.backend_service import backEndAPIRequestor
 from datetime import datetime
 import time
 from fastapi import FastAPI
@@ -12,8 +13,9 @@ app = APIRouter(
 )
 chatbot = ChatBotService()
 recommender = RecommendationService()
+backend = backEndAPIRequestor()
 
-@app.get("/healthz")
+@app.get("/chatbot/healthz")
 async def health_check():
     return {"status": "true"}
 
@@ -36,7 +38,7 @@ async def get_response_data(
 
 
 @app.post("/chatbot/get-advance-answer")
-async def get_response_data(
+async def get_advance_response_data(
     request:Request, 
     user_query: schemas.ChatbotInputSchema):                                                                                                                                                              
     try:
@@ -45,14 +47,16 @@ async def get_response_data(
         if user_intention == "recommendation":
             user_preferences = recommender.get_user_preferences(user_query)
             response = recommender.get_product_recommend_ids(user_preferences)
-            print(response)
+            list_product_ids = [item[0] for item in response]
 
+            print(list_product_ids)
+        
         elif user_intention == "order":
             response = "order"
         else:
             response = chatbot.get_general_answer(user_query) 
-        end = time.time()
 
+        end = time.time()
         return {
             "status": True,
             "data": response,
@@ -60,4 +64,4 @@ async def get_response_data(
         }
     except Exception as e:
         print("Error Occured: " + str(e))
-        raise HTTPException(status_code = 500, detail='Failed to get the response data')
+        raise HTTPException(status_code=500, detail='Failed to get the response data')

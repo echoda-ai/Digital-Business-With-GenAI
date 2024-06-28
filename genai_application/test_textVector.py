@@ -1,4 +1,4 @@
-from services.nlp_service import TextVectorizerService
+from genai_application.utils.nlp_service import TextVectorizerService
 
 if __name__ == "__main__":
     vectorizer = TextVectorizerService()
