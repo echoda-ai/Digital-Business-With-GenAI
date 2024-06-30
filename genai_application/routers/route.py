@@ -13,7 +13,7 @@ app = APIRouter(
 )
 chatbot = ChatBotService()
 recommender = RecommendationService()
-backend = backEndAPIRequestor()
+backend_helper = backEndAPIRequestor()
 
 @app.get("/chatbot/healthz")
 async def health_check():
@@ -48,9 +48,10 @@ async def get_advance_response_data(
             user_preferences = recommender.get_user_preferences(user_query)
             response = recommender.get_product_recommend_ids(user_preferences)
             list_product_ids = [item[0] for item in response]
-
-            print(list_product_ids)
-        
+            response = backend_helper.get_product_detail_by_id({
+                'user': user_query.user,
+                'productIds': list_product_ids
+            })
         elif user_intention == "order":
             response = "order"
         else:
