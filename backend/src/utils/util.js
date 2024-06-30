@@ -22,7 +22,7 @@ const jwtSign = (userID) => {
     );
     const expiredDate = DateTime
         .local()
-        .plus({ day: expiresIn });
+        .plus({ expiresIn });
 
     return { token, expiredDate }
 }
