@@ -8,4 +8,5 @@ RUN apt-get update && \
 COPY requirements.txt /opt/app/requirements.txt
 RUN pip install --no-cache-dir -r /opt/app/requirements.txt
 COPY . /opt/app
+EXPOSE 8000
 CMD ["python", "main.py"]
