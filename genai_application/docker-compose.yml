@@ -14,7 +14,9 @@ services:
       working_dir: /opt/app
       entrypoint: ["python", "main.py"]
       profiles: ["chatbot-service"]
-
+      networks:
+        - backend
+        
 networks:
-  chatbot:
+  backend:
     driver: bridge
