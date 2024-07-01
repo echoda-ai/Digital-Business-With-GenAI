@@ -14,7 +14,7 @@ class backEndAPIRequestor:
 
     def get_product_detail_by_id(self, data):
         try:
-            token = data.pop('user', None)
+            token = data.pop('user_token', None)
             if token:
                 self.headers['Authorization'] = f'Bearer {token}'
             else:
