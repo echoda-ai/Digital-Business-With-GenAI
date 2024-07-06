@@ -9,7 +9,7 @@ from dto import schemas
 
 app = APIRouter(
     prefix="/api/v1",
-    tags=["gemini-chatbot"]
+    tags=["chatbot-agent"]
 )
 chatbot = ChatBotService()
 recommender = RecommendationService()
@@ -17,7 +17,14 @@ backend_helper = backEndAPIRequestor()
 
 @app.get("/chatbot/healthz")
 async def health_check():
-    return {"message": "Success"}
+    start = time.time()
+    response =  None
+    end = time.time()
+    return schemas.ResponseData(
+        message="success",
+        data=response,
+        time=(end - start) * 1000
+    )
 
 @app.post("/chatbot/get-general-answer")
 async def get_response_data(
@@ -28,11 +35,11 @@ async def get_response_data(
         start = time.time()
         response = chatbot.get_general_answer(prompt_input) 
         end = time.time()
-        return {
-            "message": "Success",
-            "data": response,
-            "time": (end - start) * 1000
-        }
+        return schemas.ResponseData(
+            message="success",
+            data=response,
+            time=(end - start) * 1000
+        )
     except Exception as e:
         print("Error Occured: " + str(e))
         raise HTTPException(status_code = 500, detail='Failed to get the response data')
@@ -54,15 +61,25 @@ async def get_advance_response_data(
                 'user_token': user_token,
                 'productIds': list_product_ids
             })
-            return response
+            return schemas.ResponseData(
+                message="success",
+                data=response,
+                time=None
+            )
         elif user_intention == "order":
             response = "order"
+            return schemas.ResponseData(
+                message="success",
+                data=response,
+                time=None
+            )
         else:
-            bot_answer = chatbot.get_general_answer(user_query) 
-            return {
-                "message": "Success",
-                "data": bot_answer,
-            }
+            response = chatbot.get_general_answer(user_query) 
+            return schemas.ResponseData(
+                message="success",
+                data=response,
+                time=None
+            )
     except Exception as e:
         print("Error Occured: " + str(e))
         raise HTTPException(status_code=500, detail='Failed to get the response data')
