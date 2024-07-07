@@ -83,3 +83,40 @@ class ChatBotService:
         
         embedding = self.extract_512_dimension_embedding(embedding_result)
         return [embedding]
+    
+    def check_user_order_intention(self, user_query):
+        prompt = f"""
+        Classify the following user query into one of these intents follow to this: 
+        Valid intents = ["CANCEL_ORDER", "GET_ORDER_HISTORY", "GET_ORDER_DETAIL", "ORDER_GENERAL"]
+        
+        You must only classify the output only. no need to describe anything.
+        User Query: "{user_query.question}"
+        Intent:
+        
+        """
+        try:
+            response = self.model.generate_content(
+                prompt,
+                safety_settings={
+                    'HATE': 'BLOCK_NONE',
+                    'HARASSMENT': 'BLOCK_NONE',
+                    'SEXUAL': 'BLOCK_NONE',
+                    'DANGEROUS': 'BLOCK_NONE'
+                }
+            )
+            intent_response = response.text.strip()
+            print(intent_response)
+            intent = "general"
+            
+            if "CANCEL_ORDER" in intent_response:
+                intent = "cancel_order"
+            elif "GET_ORDER_HISTORY" in intent_response:
+                intent = "get_order_history"
+            elif "GET_ORDER_DETAIL" in intent_response:
+                intent = "get_order_detail"
+            elif "ORDER_GENERAL" in intent_response:
+                intent = "general"
+            return intent
+        except Exception as e:
+            print(f"Error generating content: {e}")
+            return None

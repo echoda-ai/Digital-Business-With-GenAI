@@ -5,7 +5,7 @@ from routers import chatbot_route, chatbot_ops_route
 import pathlib
 
 # The param inside FastAPI here to disable the swagger 
-app = FastAPI()
+app = FastAPI(openapi_version="3.0.2")
 app.include_router(chatbot_route.app)
 app.include_router(chatbot_ops_route.app)
 

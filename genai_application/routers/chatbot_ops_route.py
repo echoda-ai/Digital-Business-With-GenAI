@@ -14,7 +14,7 @@ app = APIRouter(
 )
 backend_helper = backEndAPIRequestor()
 
-@app.post("/chatbot/orderes")
+@app.post("/chatbot/orders")
 async def make_orders(
         request:Request, 
         user_query: schemas.ChatbotOrder,
