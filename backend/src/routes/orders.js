@@ -11,8 +11,8 @@ const orderDTO = [
         .withMessage('Product must be an array'),
     check('products.*').isUUID()
         .withMessage('Each product ID must be a valid UUID'),
-    check('totalAmount').isNumeric({ gt: 0 })
-        .withMessage('Total amount must be a number greater than 0')
+    // check('totalAmount').isNumeric({ gt: 0 })
+    //     .withMessage('Total amount must be a number greater than 0')
 ];
 
 const orderRepository = new OrderRepository();

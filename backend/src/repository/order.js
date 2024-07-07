@@ -8,12 +8,13 @@ const orderProductRepository = new OrderProductRepository()
 class OrderRepository {
     async create(order) {
         const trx = await knex.transaction();
+        console.log('order', order)
         try {
             await trx('orders')
                 .insert({
                     userID: order.userID,
                     orderID: order.orderID,
-                    totalAmount: order.totalAmount,
+                    totalAmount: trx('products').sum('price').whereIn('productID', order.products),
                     isChatbotOrder: order.isChatbotOrder
                 })
                 .then(async () => {
