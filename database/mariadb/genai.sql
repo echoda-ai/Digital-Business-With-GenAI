@@ -140,6 +140,16 @@ CREATE TABLE `roles` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `roles`
+--
+
+LOCK TABLES `roles` WRITE;
+/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
+INSERT INTO `roles` VALUES (1,'customer'),(2,'admin');
+/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `users`
 --
 
@@ -162,6 +172,16 @@ CREATE TABLE `users` (
   CONSTRAINT `users_roleid_foreign` FOREIGN KEY (`roleID`) REFERENCES `roles` (`roleID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES ('1e7b7206-7f51-4a0b-b6ad-ba2fea9db712','Garret_Altenwerth83','f12e112240082ed228fbb4e6fba5ea3ecba165340d1d7645f149e09298d484dd','Della_Moore@yahoo.com','Montgomery','Female','(865) 983-8110 x4259','67542',1),('22fb42bc-f158-41d6-a799-17e502fa9b2d','Emil.Langosh','f12e112240082ed228fbb4e6fba5ea3ecba165340d1d7645f149e09298d484dd','Lucio7@gmail.com','Schambergerland','Female','(460) 468-5636 x652','19130-9703',1),('26588aad-a962-4a3b-9d62-ad0e811d8f1d','Kobe.Wisozk99','f12e112240082ed228fbb4e6fba5ea3ecba165340d1d7645f149e09298d484dd','Aleen_Kuhn@yahoo.com','Baileyton','Male','839-530-7189 x9935','46421-7759',1),('360030d9-3664-4817-99b8-734fb02da9fc','Makenna_Blick15','f12e112240082ed228fbb4e6fba5ea3ecba165340d1d7645f149e09298d484dd','Marcos_Gerhold@yahoo.com','Abdulborough','Male','248-963-1367 x3134','94980',1),('43ff37c3-4ab1-419a-b2d2-e0fdcdcd840e','Sydnie.Hammes','f12e112240082ed228fbb4e6fba5ea3ecba165340d1d7645f149e09298d484dd','Candida57@gmail.com','Matteohaven','Female','447.753.4567 x24498','68715',1),('51784d07-1446-4ae0-ae17-53f433386f55','Mariela88','f12e112240082ed228fbb4e6fba5ea3ecba165340d1d7645f149e09298d484dd','Valentine93@hotmail.com','Thielfield','Male','(378) 843-3141 x072','36168',1),('6a9df938-c7c6-4300-92a3-f00e1ccd03cc','Malvina_Murray','f12e112240082ed228fbb4e6fba5ea3ecba165340d1d7645f149e09298d484dd','Ludie.Paucek78@hotmail.com','East Eliseport','Female','(431) 253-0737 x417','12489',2),('79193151-4fc8-4ba8-8f75-f952474445e3','Alan28','f12e112240082ed228fbb4e6fba5ea3ecba165340d1d7645f149e09298d484dd','Pietro42@hotmail.com','Carliburgh','Female','702.683.2019 x8173','09286',2),('8f5760da-2d59-4166-8299-3639828e29c3','Fidel_Moore73','f12e112240082ed228fbb4e6fba5ea3ecba165340d1d7645f149e09298d484dd','Aida80@hotmail.com','Brandon','Female','(480) 973-9641 x622','26332-7307',1),('9566a4a3-151a-4129-a5f6-fe7d41a7d3d2','Matteo55','f12e112240082ed228fbb4e6fba5ea3ecba165340d1d7645f149e09298d484dd','Leone_Nicolas87@hotmail.com','West Jordan','Female','661-280-6718 x56529','78546-4492',1);
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -172,4 +192,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-07  8:22:44
+-- Dump completed on 2024-06-23 13:26:42
