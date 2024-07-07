@@ -69,8 +69,3 @@ const productSync = () => connPool.query('SELECT categoryID, categoryName FROM c
         console.error('Error executing query:', error);
     });
 
-
-categorySync()
-    .then(() => productSync())
-    .then(() => console.log('Synchronization completed successfully.'))
-    .catch(error => console.error('An error occurred during synchronization:', error));
