@@ -10,12 +10,14 @@
     "migrate:latest": "knex --knexfile src/db/knexfile.js migrate:latest",
     "migrate:rollback": "knex --knexfile src/db/knexfile.js migrate:rollback",
     "seed:make": "knex --knexfile src/db/knexfile.js seed:make",
-    "seed:run": "knex --knexfile src/db/knexfile.js seed:run"
+    "seed:run": "knex --knexfile src/db/knexfile.js seed:run",
+    "swagger": "node ./swagger.js"
   },
   "author": "SEANGLAY",
   "license": "ISC",
   "dependencies": {
     "@faker-js/faker": "^8.4.1",
+    "and": "^0.0.3",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "express-validator": "^7.1.0",
@@ -26,6 +28,8 @@
     "node-fetch": "^3.3.2",
     "nodemon": "^3.1.4",
     "pino": "^9.2.0",
-    "pino-pretty": "^11.2.1"
+    "pino-pretty": "^11.2.1",
+    "swagger-autogen": "^2.23.7",
+    "swagger-ui-express": "^5.0.1"
   }
 }
