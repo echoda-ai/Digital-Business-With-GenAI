@@ -14,15 +14,16 @@ const comparePassword = (password, hash) => hashPassword(password) === hash;
 
 const jwtSign = (userID) => {
     console.log("userID", userID)
-    const expiresIn = Number(JWT_EXPIRE.split(' ')[0]) * 24 * 60 * 60; // Convert days to seconds
-
+    console.log('JWT_EXPIRE', JWT_EXPIRE)
+    const expiresIn = Number(JWT_EXPIRE) * 24 * 60 * 60; // Convert days to seconds
+    console.log('expiresIn', expiresIn)
     const token = jwt.sign({ userID: userID },
         JWT_SECRET,
         { expiresIn: expiresIn }
     );
     const expiredDate = DateTime
         .local()
-        .plus({ expiresIn });
+        .plus({ second: expiresIn });
 
     return { token, expiredDate }
 }

@@ -13,7 +13,7 @@ class OrderRepository {
                 .insert({
                     userID: order.userID,
                     orderID: order.orderID,
-                    totalAmount: order.totalAmount,
+                    totalAmount: trx('products').sum('price').whereIn('productID', order.products),
                     isChatbotOrder: order.isChatbotOrder
                 })
                 .then(async () => {
@@ -32,6 +32,13 @@ class OrderRepository {
             await trx.rollback()
             throw error
         }
+    }
+
+    async updateStatus(orderID, status) {
+        console.log(orderID, status)
+        return await knex('orders')
+            .where('orderID', orderID)
+            .update({ orderStatus: status })
     }
 
 }

@@ -2,6 +2,7 @@ const { logger } = require('./utils/logger.js')
 const express = require('express')
 const { NODE_PORT } = require('./constant.js')
 // const compression = require('compression')
+const swaggerUIPath = require("swagger-ui-express");
 const app = express()
 
 app.use(express.json())
@@ -22,11 +23,10 @@ app.use((err, _req, _res, _next) => {
 //     }
 // }))
 
-app.get('/', (_req, res) => res.send('Hello World!'))
-app.use('/auth', require('./routes/auth.js'));
-app.use('/categories', require('./routes/categories.js'))
-app.use('/products', require('./routes/products.js'))
-app.use('/orders', require('./routes/orders.js'))
+const swaggerDocument = require('../swagger-output.json');
+app.use('/api-docs', swaggerUIPath.serve, swaggerUIPath.setup(swaggerDocument));
+
+app.use('/', require('./routes/index.js'))
 
 
 app.listen(NODE_PORT, () => logger.info(`Server is running on http://localhost:${NODE_PORT}`))

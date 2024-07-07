@@ -5,14 +5,15 @@ const { check, validationResult } = require('express-validator');
 const { OrderRepository } = require('../repository/order');
 const { safeError, safeResponse } = require('../utils/response.js');
 const { generateUUID } = require('../utils/util');
+const orderStatus = require('../config/order.status.json');
 
 const orderDTO = [
     check('products').isArray()
         .withMessage('Product must be an array'),
     check('products.*').isUUID()
         .withMessage('Each product ID must be a valid UUID'),
-    check('totalAmount').isNumeric({ gt: 0 })
-        .withMessage('Total amount must be a number greater than 0')
+    // check('totalAmount').isNumeric({ gt: 0 })
+    //     .withMessage('Total amount must be a number greater than 0')
 ];
 
 const orderRepository = new OrderRepository();
@@ -29,8 +30,13 @@ router.post('/', verifyToken, orderDTO, (req, res) => {
         userID: req.userID
 
     }
-    console.log(requestBody)
     orderRepository.create(requestBody)
+        .then(order => safeResponse(res, { payload: order }))
+        .catch(err => safeError(res, err))
+});
+
+router.patch('/cancel/:orderID', verifyToken, (req, res) => {
+    orderRepository.updateStatus(req.params.orderID, orderStatus.CANCELLED)
         .then(order => safeResponse(res, { payload: order }))
         .catch(err => safeError(res, err))
 });
