@@ -26,8 +26,7 @@ app.use((err, _req, _res, _next) => {
 const swaggerDocument = require('../swagger-output.json');
 app.use('/api-docs', swaggerUIPath.serve, swaggerUIPath.setup(swaggerDocument));
 
-app.get('/', (_req, res) => res.send('Hello World!'))
-app.use('/api', require('./routes/index.js'))
+app.use('/', require('./routes/index.js'))
 
 
 app.listen(NODE_PORT, () => logger.info(`Server is running on http://localhost:${NODE_PORT}`))
