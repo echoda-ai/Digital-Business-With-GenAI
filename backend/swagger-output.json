@@ -149,6 +149,24 @@
           }
         }
       }
+    },
+    "/orders/cancel/{orderID}": {
+      "patch": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "orderID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
     }
   }
 }

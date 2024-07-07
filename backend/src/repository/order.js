@@ -8,7 +8,6 @@ const orderProductRepository = new OrderProductRepository()
 class OrderRepository {
     async create(order) {
         const trx = await knex.transaction();
-        console.log('order', order)
         try {
             await trx('orders')
                 .insert({
@@ -33,6 +32,13 @@ class OrderRepository {
             await trx.rollback()
             throw error
         }
+    }
+
+    async updateStatus(orderID, status) {
+        console.log(orderID, status)
+        return await knex('orders')
+            .where('orderID', orderID)
+            .update({ orderStatus: status })
     }
 
 }

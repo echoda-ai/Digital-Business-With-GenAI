@@ -1,0 +1,6 @@
+{
+    "CANCELLED": "cancelled",
+    "PENDING": "pending",
+    "PROCESSING": "processing",
+    "COMPLETED": "completed"
+}
