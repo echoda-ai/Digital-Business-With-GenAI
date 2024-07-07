@@ -60,7 +60,7 @@ class RecommendationService:
         else:
             return []
         
-    def get_product_recommend_ids(self, user_preference, top_k=3):
+    def get_product_recommend_ids(self, user_preference, top_k=2):
         embedded_vectors = self.chatbot_service.embedding_user_query(user_preference)
         if embedded_vectors:
             query_vector = embedded_vectors[0]  

@@ -24,7 +24,6 @@ def get_product_dataframe():
         FROM products AS A
         LEFT JOIN categories AS B 
             ON A.categoryID = B.categoryID
-        LIMIT 5
     """)
     mariadb_service.mariadb_close_connection()
 
