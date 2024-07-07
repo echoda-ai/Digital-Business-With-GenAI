@@ -15,6 +15,10 @@ class ChatbotOrder(BaseModel):
         25.0,
         example=25.0
     )
+    isChatbotOrder: bool = Field(
+        True,
+        example=True
+    )
 
 class ResponseData(BaseModel):
     message: Union[str, None]

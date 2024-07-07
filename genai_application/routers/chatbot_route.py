@@ -67,12 +67,41 @@ async def get_advance_response_data(
                 time=None
             )
         elif user_intention == "order":
-            response = "order"
-            return schemas.ResponseData(
-                message="success",
-                data=response,
-                time=None
-            )
+            user_order_intention = chatbot.check_user_order_intention(user_query)
+            if user_order_intention == 'cancel_order':
+        
+                response = "canncel_order"
+                
+                return schemas.ResponseData(
+                    message="success",
+                    data=response,
+                    time=None
+                )
+            elif user_order_intention == 'get_order_history':
+                response = "get_order_history"
+                
+                return schemas.ResponseData(
+                    message="success",
+                    data=response,
+                    time=None
+                )
+                
+            elif user_order_intention == 'get_order_detail':
+                response = "get_order_detail"
+                
+                return schemas.ResponseData(
+                    message="success",
+                    data=response,
+                    time=None
+                )
+                
+            else:
+                response = chatbot.get_general_answer(user_query) 
+                return schemas.ResponseData(
+                    message="success",
+                    data=response,
+                    time=None
+                )
         else:
             response = chatbot.get_general_answer(user_query) 
             return schemas.ResponseData(
