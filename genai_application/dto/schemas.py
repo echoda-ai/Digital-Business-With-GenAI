@@ -8,13 +8,10 @@ class ChatbotInputSchema(BaseModel):
 
 class ChatbotOrder(BaseModel):
     products: List[str] = Field(
-        ['001c979b-b1ed-442f-85c3-a459db33c680'],
-        example=["001c979b-b1ed-442f-85c3-a459db33c680"]
+        ['09e927a6-99e4-4756-acb4-8dd706006921', '0dbbf652-342a-44a5-8f10-34df8004e1cb'],
+        example=["09e927a6-99e4-4756-acb4-8dd706006921", "0dbbf652-342a-44a5-8f10-34df8004e1cb"]
     )
-    totalAmount: float = Field(
-        25.0,
-        example=25.0
-    )
+
     isChatbotOrder: bool = Field(
         True,
         example=True
