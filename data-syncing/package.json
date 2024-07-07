@@ -1,0 +1,17 @@
+{
+  "name": "data-syncing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "SEANGLAY",
+  "license": "ISC",
+  "dependencies": {
+    "got": "^14.4.1",
+    "mysql2": "^3.10.2"
+  }
+}
