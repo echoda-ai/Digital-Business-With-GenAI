@@ -6,6 +6,8 @@ const productRepository = new ProductRepository()
 const orderProductRepository = new OrderProductRepository()
 
 class OrderRepository {
+    #selectedFields = ['orderID', 'userID', 'totalAmount', 'orderStatus', 'createdAt']
+
     async create(order) {
         const trx = await knex.transaction();
         try {
@@ -35,10 +37,15 @@ class OrderRepository {
     }
 
     async updateStatus(orderID, status) {
-        console.log(orderID, status)
         return await knex('orders')
             .where('orderID', orderID)
             .update({ orderStatus: status })
+    }
+
+    async getOrderByUserID(userID) {
+        return await knex('orders')
+            .select(this.#selectedFields)
+            .where('userID', userID)
     }
 
 }
