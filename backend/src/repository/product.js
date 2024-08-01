@@ -21,6 +21,7 @@ class ProductRepository {
     }
 
     findProductById(productIDs) {
+        console.log(productIDs)
         return knex('products')
             .select(this.#selectedFields)
             .whereIn('productID', productIDs)

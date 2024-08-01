@@ -39,7 +39,7 @@ router.patch('/cancel/:orderID', verifyToken, (req, res) => orderRepository.upda
     .then(order => safeResponse(res, { payload: order }))
     .catch(err => safeError(res, err)));
 
-router.get('/:userID', verifyToken, (req, res) => orderRepository.getOrderByUserID(req.params.userID)
+router.get('/', verifyToken, (req, res) => orderRepository.getOrderByUserID(req.userID)
     .then(order => safeResponse(res, { payload: order }))
     .catch(err => safeError(res, err)));
 
