@@ -45,6 +45,7 @@ services:
       - "${BACKEND_PORT}:${BACKEND_PORT}"
     volumes:
       - ./.env:/app/.env
+      - ./assets:/app/assets
     networks:
       - backend
 
