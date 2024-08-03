@@ -20,19 +20,21 @@ class OrderRepository {
                 })
                 .then(async () => {
                     for (const productID of order.products) {
-                        const product = await productRepository.getProductById(productID)
+                        const product = await productRepository.getProductById(productID);
                         if (product.quantityAvailable < 1) {
-                            throw new Error(`Product with ID ${productID} is out of stock`)
+                            throw new Error(`Product with ID ${productID} is out of stock`);
                         }
                         await orderProductRepository.createOrderProduct(order.orderID, productID, trx);
-                        await productRepository.decrementProductQuantity(productID, 1, trx)
+                        await productRepository.decrementProductQuantity(productID, 1, trx);
                     }
-                }
-                )
-            await trx.commit()
+                });
+            await trx.commit();
+
+            // const createdOrder = await knex('orders').where({ orderID: order.orderID });
+            // return createdOrder;
         } catch (error) {
-            await trx.rollback()
-            throw error
+            await trx.rollback();
+            throw error;
         }
     }
 

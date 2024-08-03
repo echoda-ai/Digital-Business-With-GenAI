@@ -1,7 +1,7 @@
 const knex = require('../db/knex');
 
 class BannerRepository {
-    #selected = ['bannerID', 'image_path']
+    #selected = ['id', 'image_path']
 
     findAll() {
         return knex('banners')
@@ -12,6 +12,21 @@ class BannerRepository {
         return knex('banners')
             .insert(data)
     }
+
+    findById(id) {
+        return knex('banners')
+            .select(this.#selected)
+            .where({ id })
+            .first();
+    }
+
+    remove(id) {
+        return knex('banners')
+            .where({ id })
+            .del();
+    }
+
+
 }
 
 module.exports = BannerRepository;
