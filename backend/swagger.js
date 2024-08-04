@@ -9,7 +9,7 @@ const doc = {
   basePath: '/',
 };
 
-const outputFile = './swagger-output.json';
+const outputFile = './assets/swagger-output.json';
 const routes = ['./src/routes/index.js'];
 
 /* NOTE: If you are using the express Router, you must pass in the 'routes' only the 
