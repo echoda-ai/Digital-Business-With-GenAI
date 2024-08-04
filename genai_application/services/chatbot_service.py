@@ -9,6 +9,13 @@ class ChatBotService:
     def __init__(self):
         self.model = LLMModel().get_llm_model()
 
+    def clean_text_data(self, raw_text):
+        import re 
+        cleaned_text = re.sub(r'[^\w\s,.!?\"\'()]', '', raw_text)
+        cleaned_text = cleaned_text.replace('"', "")
+        cleaned_text = ' '.join(cleaned_text.split())
+        return cleaned_text
+
     def get_general_answer(self, user_query):
         prompt = f"""
         You are a e-commerce chatbot assistant, you must answer based on your user query
@@ -27,7 +34,7 @@ class ChatBotService:
 
             check_data = response.text            
             if check_data is not None:
-                return check_data
+                return self.clean_text_data(check_data)
             else:
                 return "I am just a e-commerce chatbot assistant and I am still learning, please kindly lemme know if I can help you."
             
@@ -105,9 +112,7 @@ class ChatBotService:
                 }
             )
             intent_response = response.text.strip()
-            print(intent_response)
             intent = "general"
-            
             if "CANCEL_ORDER" in intent_response:
                 intent = "cancel_order"
             elif "GET_ORDER_HISTORY" in intent_response:
