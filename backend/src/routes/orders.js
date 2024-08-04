@@ -30,15 +30,17 @@ router.post('/', verifyToken, orderDTO, (req, res) => {
         userID: req.userID
 
     }
-    orderRepository.create(requestBody)
+    return orderRepository.create(requestBody)
         .then(order => safeResponse(res, { payload: order }))
         .catch(err => safeError(res, err))
 });
 
-router.patch('/cancel/:orderID', verifyToken, (req, res) => {
-    orderRepository.updateStatus(req.params.orderID, orderStatus.CANCELLED)
-        .then(order => safeResponse(res, { payload: order }))
-        .catch(err => safeError(res, err))
-});
+router.patch('/cancel/:orderID', verifyToken, (req, res) => orderRepository.updateStatus(req.params.orderID, orderStatus.CANCELLED)
+    .then(order => safeResponse(res, { payload: order }))
+    .catch(err => safeError(res, err)));
+
+router.get('/', verifyToken, (req, res) => orderRepository.getOrderByUserID(req.userID)
+    .then(order => safeResponse(res, { payload: order }))
+    .catch(err => safeError(res, err)));
 
 module.exports = router;

@@ -17,6 +17,8 @@ const DB_PASSWORD = getEnv('DB_PASSWORD');
 const DB_NAME = getEnv('DB_NAME');
 const JWT_SECRET = getEnv('JWT_SECRET');
 const JWT_EXPIRE = getEnv('JWT_EXPIRE');
+const BACKEND_BASE_URL = getEnv('BACKEND_BASE_URL');
+const UPLOADS_BASE_DIR = getEnv('UPLOADS_BASE_DIR');
 
 module.exports = {
   NODE_PORT,
@@ -27,4 +29,6 @@ module.exports = {
   DB_NAME,
   JWT_SECRET,
   JWT_EXPIRE,
+  BACKEND_BASE_URL,
+  UPLOADS_BASE_DIR
 };

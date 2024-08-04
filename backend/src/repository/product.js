@@ -1,15 +1,16 @@
 const knex = require('../db/knex');
 
 class ProductRepository {
+    #selectedFields = ["productID", "name", "description", "price", "quantityAvailable", "image"]
+
     getProducts() {
         return knex('products')
-            .select("productID", "name", "description", "price", "quantityAvailable")
+            .select(this.#selectedFields)
     }
 
     getProductById(productID) {
-        console.log("productID", productID)
         return knex("products")
-            .select("productID", "name", "description", "price", "quantityAvailable")
+            .select(this.#selectedFields)
             .where('productID', '=', productID)
     }
 
@@ -20,8 +21,9 @@ class ProductRepository {
     }
 
     findProductById(productIDs) {
+        console.log(productIDs)
         return knex('products')
-            .select("productID", "name", "description", "price", "quantityAvailable")
+            .select(this.#selectedFields)
             .whereIn('productID', productIDs)
     }
 }

@@ -1,10 +1,12 @@
 const swaggerAutogen = require('swagger-autogen')();
-
+const { BACKEND_BASE_URL } = require('./src/constant.js');
 const doc = {
   info: {
     title: 'My API',
     description: 'Description'
   },
+  host: BACKEND_BASE_URL,
+  basePath: '/',
 };
 
 const outputFile = './swagger-output.json';

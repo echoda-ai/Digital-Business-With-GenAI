@@ -60,12 +60,12 @@ router.post('/login', loginDto, (req, res) => {
     userRepository.findUserByEmail(req.body.email)
         .then(user => {
             if (!user) {
-                return safeResponse(res, { message: 'The email is not found' })
+                return safeError(res, { message: 'The email is not found' })
             }
 
             const isPasswordMatched = comparePassword(req.body.password, user.password);
             if (!isPasswordMatched) {
-                return safeResponse(res, { message: 'The password is not correct' })
+                return safeError(res, { message: 'The password is not correct' })
             }
 
             const token = jwtSign(user.userID);
