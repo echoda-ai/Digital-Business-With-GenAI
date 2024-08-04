@@ -69,9 +69,7 @@ async def get_advance_response_data(
         elif user_intention == "order":
             user_order_intention = chatbot.check_user_order_intention(user_query)
             if user_order_intention == 'cancel_order':
-        
                 response = "canncel_order"
-                
                 return schemas.ResponseData(
                     message="success",
                     data=response,
