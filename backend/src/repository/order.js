@@ -6,7 +6,7 @@ const productRepository = new ProductRepository()
 const orderProductRepository = new OrderProductRepository()
 
 class OrderRepository {
-    #selectedFields = ['orderID', 'userID', 'totalAmount', 'orderStatus', 'createdAt']
+    #selectedFields = ['orderID', 'userID', 'totalAmount', 'orderStatus']
 
     async create(order) {
         const trx = await knex.transaction();
