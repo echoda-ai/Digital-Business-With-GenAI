@@ -6,7 +6,7 @@ const productRepository = new ProductRepository()
 const orderProductRepository = new OrderProductRepository()
 
 class OrderRepository {
-    #selectedFields = ['orderID', 'userID', 'totalAmount', 'orderStatus']
+    #selectedFields = ['orderID', 'userID', 'totalAmount', 'orderStatus', 'created_at']
 
     async create(order) {
         const trx = await knex.transaction();
@@ -59,7 +59,7 @@ class OrderRepository {
             .leftJoin('order_products', 'orders.orderID', 'order_products.orderID')
             .leftJoin('products', 'order_products.productID', 'products.productID')
             .where('orders.userID', userID)
-            .groupBy(this.#selectedFields.map(field => `orders.${field}`));
+            .orderBy('orders.created_at', 'desc')
 
         return orders.map(order => ({
             ...order,
