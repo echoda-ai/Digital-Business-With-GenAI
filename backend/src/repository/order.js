@@ -45,9 +45,25 @@ class OrderRepository {
     }
 
     async getOrderByUserID(userID) {
-        return await knex('orders')
-            .select(this.#selectedFields)
-            .where('userID', userID)
+        const orders = await knex('orders')
+            .select(this.#selectedFields.map(field => `orders.${field}`))
+            .select(knex.raw(`
+            JSON_ARRAYAGG(
+                JSON_OBJECT(
+                    'productName', products.name,
+                    'productPrice', products.price
+                )
+            ) as products
+        `))
+            .leftJoin('order_products', 'orders.orderID', 'order_products.orderID')
+            .leftJoin('products', 'order_products.productID', 'products.productID')
+            .where('orders.userID', userID)
+            .groupBy(this.#selectedFields.map(field => `orders.${field}`));
+
+        return orders.map(order => ({
+            ...order,
+            products: JSON.parse(order.products)
+        }));
     }
 
 }

@@ -26,6 +26,12 @@ class ProductRepository {
             .select(this.#selectedFields)
             .whereIn('productID', productIDs)
     }
+
+    getProductByCategoryID(categoryID) {
+        return knex('products')
+            .select(this.#selectedFields)
+            .where({ categoryID })
+    }
 }
 
 
