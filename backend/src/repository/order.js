@@ -51,7 +51,8 @@ class OrderRepository {
             JSON_ARRAYAGG(
                 JSON_OBJECT(
                     'productName', products.name,
-                    'productPrice', products.price
+                    'productPrice', products.price,
+                    'productImage', products.image
                 )
             ) as products
         `))
